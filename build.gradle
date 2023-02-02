@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'cn.enaium'
+version '9.4'
+
+jar {
+    manifest.attributes(
+            'Manifest-Version': 1.0,
+            'Main-Class': 'cn.enaium.cafully.asm.ASM'
+    )
+}
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'cn.enaium.cafully:cafully-api:1.0.0'
+
+    implementation "org.ow2.asm:asm-tree:$version"
+    implementation "org.ow2.asm:asm-util:$version"
+    implementation "org.ow2.asm:asm-commons:$version"
+    implementation "org.ow2.asm:asm-analysis:$version"
+}
+
+shadowJar {
+    archiveClassifier.set('')
+}
+
+build.dependsOn shadowJar
